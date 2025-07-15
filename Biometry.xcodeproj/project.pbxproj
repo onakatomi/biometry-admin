@@ -11,9 +11,8 @@
 		4BF2DA442E260BB000264EAF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF2DA432E260BB000264EAF /* ContentView.swift */; };
 		4BF2DA462E260BB100264EAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BF2DA452E260BB100264EAF /* Assets.xcassets */; };
 		4BF2DA492E260BB100264EAF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BF2DA482E260BB100264EAF /* Preview Assets.xcassets */; };
-		4BF2DA542E260BB100264EAF /* BiometryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF2DA532E260BB100264EAF /* BiometryTests.swift */; };
-		4BF2DA5E2E260BB100264EAF /* BiometryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF2DA5D2E260BB100264EAF /* BiometryUITests.swift */; };
-		4BF2DA602E260BB100264EAF /* BiometryUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF2DA5F2E260BB100264EAF /* BiometryUITestsLaunchTests.swift */; };
+		4BF2DA6E2E260F8600264EAF /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF2DA6D2E260F8600264EAF /* PrimaryButton.swift */; };
+		4BF2DA712E26219D00264EAF /* ScreensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF2DA702E26219D00264EAF /* ScreensView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,10 +40,9 @@
 		4BF2DA482E260BB100264EAF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4BF2DA4A2E260BB100264EAF /* Biometry.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Biometry.entitlements; sourceTree = "<group>"; };
 		4BF2DA4F2E260BB100264EAF /* BiometryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiometryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4BF2DA532E260BB100264EAF /* BiometryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometryTests.swift; sourceTree = "<group>"; };
 		4BF2DA592E260BB100264EAF /* BiometryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiometryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4BF2DA5D2E260BB100264EAF /* BiometryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometryUITests.swift; sourceTree = "<group>"; };
-		4BF2DA5F2E260BB100264EAF /* BiometryUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometryUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		4BF2DA6D2E260F8600264EAF /* PrimaryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
+		4BF2DA702E26219D00264EAF /* ScreensView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreensView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,8 +74,6 @@
 			isa = PBXGroup;
 			children = (
 				4BF2DA402E260BB000264EAF /* Biometry */,
-				4BF2DA522E260BB100264EAF /* BiometryTests */,
-				4BF2DA5C2E260BB100264EAF /* BiometryUITests */,
 				4BF2DA3F2E260BB000264EAF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -96,7 +92,9 @@
 			isa = PBXGroup;
 			children = (
 				4BF2DA412E260BB000264EAF /* BiometryApp.swift */,
+				4BF2DA6C2E260F6200264EAF /* Components */,
 				4BF2DA432E260BB000264EAF /* ContentView.swift */,
+				4BF2DA6F2E26217A00264EAF /* Views */,
 				4BF2DA452E260BB100264EAF /* Assets.xcassets */,
 				4BF2DA4A2E260BB100264EAF /* Biometry.entitlements */,
 				4BF2DA472E260BB100264EAF /* Preview Content */,
@@ -112,21 +110,20 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		4BF2DA522E260BB100264EAF /* BiometryTests */ = {
+		4BF2DA6C2E260F6200264EAF /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				4BF2DA532E260BB100264EAF /* BiometryTests.swift */,
+				4BF2DA6D2E260F8600264EAF /* PrimaryButton.swift */,
 			);
-			path = BiometryTests;
+			path = Components;
 			sourceTree = "<group>";
 		};
-		4BF2DA5C2E260BB100264EAF /* BiometryUITests */ = {
+		4BF2DA6F2E26217A00264EAF /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4BF2DA5D2E260BB100264EAF /* BiometryUITests.swift */,
-				4BF2DA5F2E260BB100264EAF /* BiometryUITestsLaunchTests.swift */,
+				4BF2DA702E26219D00264EAF /* ScreensView.swift */,
 			);
-			path = BiometryUITests;
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,7 +256,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BF2DA6E2E260F8600264EAF /* PrimaryButton.swift in Sources */,
 				4BF2DA442E260BB000264EAF /* ContentView.swift in Sources */,
+				4BF2DA712E26219D00264EAF /* ScreensView.swift in Sources */,
 				4BF2DA422E260BB000264EAF /* BiometryApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -268,7 +267,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4BF2DA542E260BB100264EAF /* BiometryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,8 +274,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4BF2DA602E260BB100264EAF /* BiometryUITestsLaunchTests.swift in Sources */,
-				4BF2DA5E2E260BB100264EAF /* BiometryUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,6 +421,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Biometry/Preview Content\"";
+				DEVELOPMENT_TEAM = 8BZQFRK58K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -450,6 +447,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Biometry/Preview Content\"";
+				DEVELOPMENT_TEAM = 8BZQFRK58K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
