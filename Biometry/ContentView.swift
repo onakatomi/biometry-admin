@@ -10,121 +10,170 @@ import AVKit
 
 struct ContentView: View {
     
-    @State private var videoUrl: URL?
-    @State private var player = AVPlayer()
+    @State private var videoUrls: [URL] = [] // Videos selected.
+    @State private var externalScreenVideoPlayers: [AVPlayer] = [] // Active list of players (each corresponding to a video)
+    @State private var previewVideoPlayers: [AVPlayer] = []
+    @State private var screenWindows: [NSWindow] = [] // Keep track of screens in use.
+    @State private var areVideosPlaying = false // Whether we're currently in playback
+    @State private var selectedVideoForScreen: [Int?] = [] // one selected-video index per screen; default to 0
     @StateObject private var model = DisplayModel()
     
     var body: some View {
         ZStack {
-            // Background colour
+            // Admin panel background colour
             Color(.darkGray)
                 .ignoresSafeArea()
-            
-            // Column
-            VStack(spacing: 16){
+
+            VStack(spacing: 16) {
                 Image(systemName: "toilet")
-                    .imageScale(.large)
+                    .font(.system(size: 40, weight: .regular))
                     .foregroundStyle(.tint)
                 Text("Welcome to Biometry!")
                     .bold()
                     .font(.title)
                 
-                if let _ = videoUrl {
-                    // Inline preview of selected video
-                    VideoPlayer(player: player)
-                        .frame(height: 100)
-                        .aspectRatio(contentMode: .fit)
-                        .fixedSize(horizontal: true, vertical: false)
-                        .onAppear { player.play() }
-                        .onChange(of: videoUrl) { _, newURL in
-                            guard let u = newURL else { return }
-                            player.replaceCurrentItem(with: .init(url: u))
-                            player.play()
-                        }
-                    
-                    // Now the list of screens + “Play Here” buttons
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Choose a screen to play on:")
-                            .font(.headline)
-                        
-                        ForEach(model.screens.indices, id: \.self) { i in
-                            HStack {
-                                let screen = model.screens[i]
-                                Text("Screen \(i+1): \(Int(screen.frame.width))×\(Int(screen.frame.height))")
-                                Spacer()
-                                Button("Play Here") {
-                                    playOnScreen(screen)
-                                }
-                                .buttonStyle(.bordered)
-                            }
+                // In-line preview of selected videos.
+                if !videoUrls.isEmpty {
+                    HStack {
+                        ForEach(previewVideoPlayers.indices, id: \.self) { i in
+                          let player = previewVideoPlayers[i]
+                          VideoPlayer(player: player)
+                            .frame(height: 100)
+                            .aspectRatio(contentMode: .fit)
+                            .clipped()
+                            .onAppear { player.play() }
                         }
                     }
-                    .padding(.top)
-                } else {
-                    Text("No files currently selected.")
-                }
+                } else { Text("Pick some videos to preview...") }
                 
                 // Select files button
-                PrimaryButton(text: "Choose files") {
-                    selectVideo()
+                PrimaryButton(text: videoUrls.isEmpty ? "Choose files" : "Replace files") {
+                    selectVideos()
                 }
                 
+                // List of screens available for playback with their info
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Available screens:")
+                        .font(.headline)
+                    
+                    ForEach(model.screens.indices, id: \.self) { i in
+                        HStack(spacing: 16) {
+                            let cgDisplayId = model.cgDisplayIDs[i]
+                            let mode = CGDisplayCopyDisplayMode(cgDisplayId)
+                            Text("Screen \(i+1): \(mode?.pixelWidth ?? 0)×\(mode?.pixelHeight ?? 0)")
+                                .buttonStyle(.bordered)
+                            
+                            // Next to each video we have a dropdown of available videos we want to play on each screen
+                            if selectedVideoForScreen.indices.contains(i) {
+                                Picker("Video", selection: $selectedVideoForScreen[i]) {
+                                    Text("None")
+                                        .tag(nil as Int?)
+                                    ForEach(videoUrls.indices, id: \.self) { vid in
+                                        Text("Video \(vid+1)")
+                                            .tag(Optional(vid))
+                                    }
+                                }
+                                .pickerStyle(MenuPickerStyle())
+                                .frame(maxWidth: 120)
+                            }
+                            
+                        }
+                    }
+                }
+                .padding(.top)
+                
+                // If we're not currently playing a video and we have at least 1 video to show.
+                if !areVideosPlaying && externalScreenVideoPlayers.count >= 1 {
+                    PrimaryButton(text: "Start experience!") {
+                        areVideosPlaying = true
+                        launchOnScreens()
+                    }
+                } else if areVideosPlaying {
+                    PrimaryButton(text: "Stop playback") {
+                        stopPlayback()
+                        print("stopped playback")
+                    }
+                }
             }
             .padding()
         }
-    }
-    
-    func selectVideo() {
-        let openPanel = NSOpenPanel() // Let user browse for files
-        
-        // Only allow video types to be selected
-        if #available(macOS 12.0, *) {
-            openPanel.allowedContentTypes = [.video, .movie]
+        // Rebuild player array whenever the user picks new files (which triggers videoUrls to update)
+        .onChange(of: videoUrls) { _, newUrls in
+            externalScreenVideoPlayers = newUrls.map { AVPlayer(url: $0) }
+            previewVideoPlayers = newUrls.map { AVPlayer(url: $0) }
             
-        } else {
-            openPanel.allowedFileTypes = ["mp4", "mov", "m4v"]
+            // Reset selections when the videos change
+            selectedVideoForScreen = Array(
+                repeating: nil,
+                count: model.screens.count
+            )
         }
-        
-        openPanel.allowsMultipleSelection = false
-        
-        // `begin` shows the panel without blocking the app’s main thread -- non-blocking
-        // Closure is passed one value (result) and returns nothing.
-        openPanel.begin { (result) -> Void in
-            // We compare the result's .rawValue to .OK.rawValue to see if the user hit “Open” (as opposed to “Cancel”). This closure is called (with the result returned) when the panels exits.
-            if result.rawValue == NSApplication.ModalResponse.OK.rawValue {
-                videoUrl = openPanel.url // set state to the video URL
-            }
+        // Keep list of screen-to-video mappings in-sync when screens change
+        .onChange(of: model.screens) { _, screens in
+            selectedVideoForScreen = Array(
+                repeating: nil,
+                count: screens.count
+            )
         }
     }
     
-    private func playOnScreen(_ screen: NSScreen) {
-        guard let url = videoUrl else { return }
-        
-        // Make a brand-new window on that screen
-        let window = NSWindow(
-            contentRect: screen.frame,
-            styleMask: [.titled, .closable, .resizable],
-            backing: .buffered,
-            defer: false,
-            screen: screen
-        )
-        
-        // Center on screen and size to fill
-        window.setFrame(screen.frame, display: true)
-        
-        // Create an AVPlayerView to fit video and play it
-        let avView = AVPlayerView(frame: screen.frame)
-        avView.player = AVPlayer(url: url)
-        avView.player?.play()
-        avView.videoGravity = .resizeAspect  // or .resizeAspectFill to crop
-        
-        // Place the AV View into the screen
-        window.contentView = avView
-        
-        // Bring to front and play fullscreen.
-        window.makeKeyAndOrderFront(nil)
-        window.toggleFullScreen(nil)
+    // Open the native file picker to select videos to playback
+    private func selectVideos() {
+        let panel = NSOpenPanel()
+        panel.allowedContentTypes = [.video, .movie]
+        panel.allowsMultipleSelection = true
+        panel.begin { resp in
+            guard resp == .OK else { return }
+            videoUrls = panel.urls
+        }
     }
+    
+    // Play videos to selected screens!
+    private func launchOnScreens() {
+        screenWindows.removeAll()
+        for (screenIndex, videoIndex) in selectedVideoForScreen.enumerated() where screenIndex < model.screens.count {
+            if videoIndex == nil { continue } // If a screen doesn't have a video, skip over it as we have nothing to launch to it.
+            let screen = model.screens[screenIndex] // Retrieve screen object to play corresponding video on
+            
+            // Make a brand-new window on that screen
+            let window = NSWindow(
+                contentRect: screen.frame,
+                styleMask: [.borderless],
+                backing: .buffered,
+                defer: false,
+                screen: screen
+            )
+            
+            // Set AV settings
+            let avView = AVPlayerView(frame: screen.frame)
+            avView.player = externalScreenVideoPlayers[videoIndex!]
+            avView.player?.play()
+            avView.controlsStyle = .none
+            avView.videoGravity = .resizeAspect
+            
+            // Set window settings
+            window.setFrame(screen.frame, display: true) // Center on screen and size to fill
+            window.level = .screenSaver
+            window.contentView = avView // Place the AV View into the screen
+            window.makeKeyAndOrderFront(nil)
+            window.toggleFullScreen(nil)
+            window.isReleasedWhenClosed = true
+            screenWindows.append(window) // Add this window to list of currently tracked windows
+        }
+        
+        print("launched windows")
+    }
+    
+    // Stop playback on all screens
+    private func stopPlayback() {
+      screenWindows.forEach { $0.close() }
+      screenWindows.removeAll()
+        
+        print("removed windows")
+        
+      areVideosPlaying = false
+    }
+    
 }
 
 #Preview {

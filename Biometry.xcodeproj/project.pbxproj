@@ -15,23 +15,6 @@
 		4BF2DA712E26219D00264EAF /* ScreensView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF2DA702E26219D00264EAF /* ScreensView.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		4BF2DA502E260BB100264EAF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4BF2DA362E260BB000264EAF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4BF2DA3D2E260BB000264EAF;
-			remoteInfo = Biometry;
-		};
-		4BF2DA5A2E260BB100264EAF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4BF2DA362E260BB000264EAF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4BF2DA3D2E260BB000264EAF;
-			remoteInfo = Biometry;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		4BF2DA3E2E260BB000264EAF /* Biometry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Biometry.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BF2DA412E260BB000264EAF /* BiometryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometryApp.swift; sourceTree = "<group>"; };
@@ -39,28 +22,12 @@
 		4BF2DA452E260BB100264EAF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4BF2DA482E260BB100264EAF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4BF2DA4A2E260BB100264EAF /* Biometry.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Biometry.entitlements; sourceTree = "<group>"; };
-		4BF2DA4F2E260BB100264EAF /* BiometryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiometryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4BF2DA592E260BB100264EAF /* BiometryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiometryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BF2DA6D2E260F8600264EAF /* PrimaryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		4BF2DA702E26219D00264EAF /* ScreensView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreensView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		4BF2DA3B2E260BB000264EAF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4BF2DA4C2E260BB100264EAF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4BF2DA562E260BB100264EAF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -82,8 +49,6 @@
 			isa = PBXGroup;
 			children = (
 				4BF2DA3E2E260BB000264EAF /* Biometry.app */,
-				4BF2DA4F2E260BB100264EAF /* BiometryTests.xctest */,
-				4BF2DA592E260BB100264EAF /* BiometryUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -146,42 +111,6 @@
 			productReference = 4BF2DA3E2E260BB000264EAF /* Biometry.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4BF2DA4E2E260BB100264EAF /* BiometryTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4BF2DA662E260BB100264EAF /* Build configuration list for PBXNativeTarget "BiometryTests" */;
-			buildPhases = (
-				4BF2DA4B2E260BB100264EAF /* Sources */,
-				4BF2DA4C2E260BB100264EAF /* Frameworks */,
-				4BF2DA4D2E260BB100264EAF /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4BF2DA512E260BB100264EAF /* PBXTargetDependency */,
-			);
-			name = BiometryTests;
-			productName = BiometryTests;
-			productReference = 4BF2DA4F2E260BB100264EAF /* BiometryTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		4BF2DA582E260BB100264EAF /* BiometryUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4BF2DA692E260BB100264EAF /* Build configuration list for PBXNativeTarget "BiometryUITests" */;
-			buildPhases = (
-				4BF2DA552E260BB100264EAF /* Sources */,
-				4BF2DA562E260BB100264EAF /* Frameworks */,
-				4BF2DA572E260BB100264EAF /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4BF2DA5B2E260BB100264EAF /* PBXTargetDependency */,
-			);
-			name = BiometryUITests;
-			productName = BiometryUITests;
-			productReference = 4BF2DA592E260BB100264EAF /* BiometryUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -194,14 +123,6 @@
 				TargetAttributes = {
 					4BF2DA3D2E260BB000264EAF = {
 						CreatedOnToolsVersion = 15.2;
-					};
-					4BF2DA4E2E260BB100264EAF = {
-						CreatedOnToolsVersion = 15.2;
-						TestTargetID = 4BF2DA3D2E260BB000264EAF;
-					};
-					4BF2DA582E260BB100264EAF = {
-						CreatedOnToolsVersion = 15.2;
-						TestTargetID = 4BF2DA3D2E260BB000264EAF;
 					};
 				};
 			};
@@ -219,8 +140,6 @@
 			projectRoot = "";
 			targets = (
 				4BF2DA3D2E260BB000264EAF /* Biometry */,
-				4BF2DA4E2E260BB100264EAF /* BiometryTests */,
-				4BF2DA582E260BB100264EAF /* BiometryUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -232,20 +151,6 @@
 			files = (
 				4BF2DA492E260BB100264EAF /* Preview Assets.xcassets in Resources */,
 				4BF2DA462E260BB100264EAF /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4BF2DA4D2E260BB100264EAF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4BF2DA572E260BB100264EAF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,34 +168,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4BF2DA4B2E260BB100264EAF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4BF2DA552E260BB100264EAF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		4BF2DA512E260BB100264EAF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4BF2DA3D2E260BB000264EAF /* Biometry */;
-			targetProxy = 4BF2DA502E260BB100264EAF /* PBXContainerItemProxy */;
-		};
-		4BF2DA5B2E260BB100264EAF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4BF2DA3D2E260BB000264EAF /* Biometry */;
-			targetProxy = 4BF2DA5A2E260BB100264EAF /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		4BF2DA612E260BB100264EAF /* Debug */ = {
@@ -417,6 +295,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Biometry/Biometry.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -432,6 +312,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Nakatomi.Biometry;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -443,6 +324,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Biometry/Biometry.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -458,76 +341,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Nakatomi.Biometry;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		4BF2DA672E260BB100264EAF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Nakatomi.BiometryTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Biometry.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Biometry";
-			};
-			name = Debug;
-		};
-		4BF2DA682E260BB100264EAF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Nakatomi.BiometryTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Biometry.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Biometry";
-			};
-			name = Release;
-		};
-		4BF2DA6A2E260BB100264EAF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Nakatomi.BiometryUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = Biometry;
-			};
-			name = Debug;
-		};
-		4BF2DA6B2E260BB100264EAF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Nakatomi.BiometryUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = Biometry;
 			};
 			name = Release;
 		};
@@ -548,24 +364,6 @@
 			buildConfigurations = (
 				4BF2DA642E260BB100264EAF /* Debug */,
 				4BF2DA652E260BB100264EAF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4BF2DA662E260BB100264EAF /* Build configuration list for PBXNativeTarget "BiometryTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4BF2DA672E260BB100264EAF /* Debug */,
-				4BF2DA682E260BB100264EAF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4BF2DA692E260BB100264EAF /* Build configuration list for PBXNativeTarget "BiometryUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4BF2DA6A2E260BB100264EAF /* Debug */,
-				4BF2DA6B2E260BB100264EAF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
