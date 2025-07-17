@@ -3,6 +3,7 @@
 //  Biometry
 //
 //  Created by Nakatomi on 17/7/2025.
+//  Acts as a pure data source slash low-level API
 //
 
 import SwiftUI

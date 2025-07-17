@@ -4,6 +4,8 @@
 //
 //  Created by Nakatomi on 15/7/2025.
 //
+//  Declares whats shown on the GUI, binds to properties from View Model but doesn't contain heavy logic
+//
 
 import SwiftUI
 import AVKit

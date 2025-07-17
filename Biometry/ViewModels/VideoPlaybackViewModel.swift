@@ -4,6 +4,9 @@
 //
 //  Created by Nakatomi on 17/7/2025.
 //
+//  Acts as the bridge between the models (display model) and views that needs it. Exposes the properties and methods that views can bind to and use.
+//  Updates published properties that views will monitor to automatically redraw if neccessary.
+//
 
 import SwiftUI
 import AVKit
