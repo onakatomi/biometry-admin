@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct BiometryApp: App {
+    @StateObject private var viewModel = VideoPlaybackViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(viewModel: viewModel)
         }
     }
 }
