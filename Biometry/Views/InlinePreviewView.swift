@@ -12,6 +12,8 @@ import AVKit
 
 struct InlinePreviewView: View {
     let players: [AVPlayer]
+    let screens: [NSScreen]
+    @Binding var selectedScreenForVideos: [Int?]
     
     var body: some View {
         if players.isEmpty {
@@ -19,11 +21,26 @@ struct InlinePreviewView: View {
         } else {
             HStack {
                 ForEach(players.indices, id: \.self) { i in
-                    VideoPlayer(player: players[i])
-                        .frame(height: 100)
-                        .aspectRatio(contentMode: .fit)
-                        .clipped()
-                        .onAppear { players[i].play() }
+                    VStack(spacing: 8) {
+                        Text("Video \(i+1):")
+                        
+                        // In-line preview player
+                        VideoPlayer(player: players[i])
+                            .aspectRatio(16.0/9.0, contentMode: .fill)
+                            .frame(width: 160, height: 90)
+                            .clipped()
+                            .onAppear { players[i].play() }
+                        
+                        // Dropdown screen picker
+                        Picker("Screen", selection: $selectedScreenForVideos[i]) {
+                            Text("None selected").tag(nil as Int?)
+                            ForEach(0..<screens.count, id: \.self) { screen in
+                                Text("Screen \(screen+1)").tag(Optional(screen))
+                            }
+                        }
+                        .pickerStyle(MenuPickerStyle())
+                        .frame(maxWidth: 200)
+                    }
                 }
             }
         }

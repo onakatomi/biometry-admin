@@ -4,7 +4,7 @@
 //
 //  Created by Nakatomi on 15/7/2025.
 //
-//  Declares whats shown on the GUI, binds to properties from View Model but doesn't contain heavy logic
+//  Declares whats shown on the GUI, binds to properties from View Model but doesn't contain heavy logic.
 //
 
 import SwiftUI
@@ -16,24 +16,50 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             Color(.darkGray).ignoresSafeArea() // Admin panel background colour
-            VStack(spacing: 16) {
+            VStack(spacing: 20) {
                 Header()
                 
-                InlinePreviewView(players: viewModel.previewVideoPlayers)
+                InlinePreviewView(
+                    players: viewModel.previewVideoPlayers,
+                    screens: viewModel.model.screens,
+                    selectedScreenForVideos: $viewModel.selectedScreenForVideos
+                )
                 
-                // Select files button -- only show if we're not in playback mode
-                if (!viewModel.areVideosPlaying) {
-                    PrimaryButton(text: viewModel.videoUrls.isEmpty ? "Choose files" : "Replace files") { viewModel.selectVideos() }
+                // Select files button -- only enable if we're not in playback mode
+                PrimaryButton(
+                    text: viewModel.videoUrls.isEmpty ? "Select videos" : "Replace videos",
+                    disabled: viewModel.areVideosPlaying,
+                    handler: viewModel.selectVideos
+                )
+                
+                // Audio file
+                if (viewModel.audioPlayer == nil) {
+                    PrimaryButton(text: "Select audio", color: .green) {
+                        viewModel.selectAudioFile()
+                    }
+                } else {
+                    Text("Uploaded audio file: \(String(describing: viewModel.audioPlayer?.data))")
+                        .font(.system(size: 10))
                 }
                 
                 // List of screens available for playback with their info
-                ScreenSelectionView(screens: viewModel.model.screens, cgDisplayIDs: viewModel.model.cgDisplayIDs, selectedVideoForScreen: $viewModel.selectedVideoForScreen, videoCount: viewModel.videoUrls.count)
+                ScreenSelectionView(
+                    screens: viewModel.model.screens,
+                    cgDisplayIDs: viewModel.model.cgDisplayIDs
+                )
                 
                 // If we're not currently playing a video and we have at least 1 video to show.
                 if viewModel.areVideosPlaying {
-                    PrimaryButton(text: "Stop playback") { viewModel.stopPlayback() }
+                    PrimaryButton(
+                        text: "Stop",
+                        handler: viewModel.stopPlayback
+                    )
                 } else {
-                    PrimaryButton(text: "Start experience!") { viewModel.startPlayback() }
+                    PrimaryButton(
+                        text: "Play!",
+                        disabled: !viewModel.videosReadyForPlayback(),
+                        handler: viewModel.startPlayback
+                    )
                 }
             }
             // Rebuild player array whenever the user picks new files (which triggers videoUrls to update)
