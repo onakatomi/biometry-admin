@@ -118,6 +118,14 @@ class VideoPlaybackViewModel: ObservableObject {
                 playerView.wantsLayer = true
                 playerView.layer?.masksToBounds = true
                 
+                let fps = FPSOverlay(attachedTo: player)
+                fps.translatesAutoresizingMaskIntoConstraints = false
+                playerView.addSubview(fps)
+                NSLayoutConstraint.activate([
+                    fps.leadingAnchor.constraint(equalTo: playerView.leadingAnchor, constant: 8),
+                    fps.topAnchor.constraint(equalTo: playerView.topAnchor, constant: 8)
+                ])
+                
                 playerView.player?.seek(to: .zero) // Play the videos from the start
                 playerView.player?.play() // Start the video immediately
                 

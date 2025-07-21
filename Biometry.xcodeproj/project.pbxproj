@@ -13,6 +13,7 @@
 		4B283BA02E288F2A00FDC1B4 /* ScreenSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B283B9F2E288F2A00FDC1B4 /* ScreenSelectionView.swift */; };
 		4B283BA22E288FA400FDC1B4 /* InlinePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B283BA12E288FA400FDC1B4 /* InlinePreviewView.swift */; };
 		4B283BA42E2893DD00FDC1B4 /* DisplayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B283BA32E2893DD00FDC1B4 /* DisplayModel.swift */; };
+		4B283BAA2E2E14BA00FDC1B4 /* FPSOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B283BA92E2E14BA00FDC1B4 /* FPSOverlay.swift */; };
 		4BF2DA422E260BB000264EAF /* BiometryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF2DA412E260BB000264EAF /* BiometryApp.swift */; };
 		4BF2DA442E260BB000264EAF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BF2DA432E260BB000264EAF /* ContentView.swift */; };
 		4BF2DA462E260BB100264EAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BF2DA452E260BB100264EAF /* Assets.xcassets */; };
@@ -27,6 +28,7 @@
 		4B283B9F2E288F2A00FDC1B4 /* ScreenSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSelectionView.swift; sourceTree = "<group>"; };
 		4B283BA12E288FA400FDC1B4 /* InlinePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlinePreviewView.swift; sourceTree = "<group>"; };
 		4B283BA32E2893DD00FDC1B4 /* DisplayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayModel.swift; sourceTree = "<group>"; };
+		4B283BA92E2E14BA00FDC1B4 /* FPSOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FPSOverlay.swift; sourceTree = "<group>"; };
 		4BF2DA3E2E260BB000264EAF /* Biometry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Biometry.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BF2DA412E260BB000264EAF /* BiometryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometryApp.swift; sourceTree = "<group>"; };
 		4BF2DA432E260BB000264EAF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				4B283B952E288A3A00FDC1B4 /* HeaderView.swift */,
+				4B283BA92E2E14BA00FDC1B4 /* FPSOverlay.swift */,
 				4BF2DA6D2E260F8600264EAF /* PrimaryButton.swift */,
 			);
 			path = Components;
@@ -216,6 +219,7 @@
 				4B283B9E2E288D2800FDC1B4 /* MediaPicker.swift in Sources */,
 				4B283BA02E288F2A00FDC1B4 /* ScreenSelectionView.swift in Sources */,
 				4B283BA22E288FA400FDC1B4 /* InlinePreviewView.swift in Sources */,
+				4B283BAA2E2E14BA00FDC1B4 /* FPSOverlay.swift in Sources */,
 				4BF2DA422E260BB000264EAF /* BiometryApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
