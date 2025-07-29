@@ -59,7 +59,18 @@ class VideoPlaybackViewModel: ObservableObject {
     
     func updatePlayers() {
         previewVideoPlayers = videoUrls.map { AVPlayer(url: $0) }
-        externalScreenVideoPlayers = videoUrls.map { AVPlayer(url: $0) }
+        externalScreenVideoPlayers = videoUrls.map { url in
+            let player = AVPlayer(url: url)
+            NotificationCenter.default.addObserver(
+                forName: .AVPlayerItemDidPlayToEndTime,
+                object: player.currentItem,
+                queue: .main
+            ) { [weak player] _ in
+                player?.seek(to: .zero)
+                player?.play()
+            }
+            return player
+        }
         selectedScreenForVideos = Array(repeating: nil, count: videoUrls.count) // Reset selections when the videos change
     }
     
@@ -68,8 +79,18 @@ class VideoPlaybackViewModel: ObservableObject {
     }
     
     func startPlayback() {
-        areVideosPlaying = true
-        launchSplitVideo()
+        
+        DispatchQueue.main.async {
+            self.areVideosPlaying = true
+            self.launchSplitVideo()
+            
+            // Make preview players match the output
+            for player in self.previewVideoPlayers {
+                player.pause()
+                player.seek(to: .zero)
+                player.play()
+            }
+        }
     }
     
     // The strategy is to iterate over all available screens, detect which videos are set to play on them and broadcast them accordingly.
@@ -78,7 +99,7 @@ class VideoPlaybackViewModel: ObservableObject {
         screenWindows.removeAll()
         
         // Play audio
-        audioPlayer?.play()
+        self.audioPlayer?.play()
         
         // Iterate over screens.
         for (screenIndex, screen) in model.screens.enumerated() {
@@ -98,9 +119,9 @@ class VideoPlaybackViewModel: ObservableObject {
             // Create the frames for the screen based on the screen dimensions
             let fullFrame = screen.frame
             let subframeWidth = fullFrame.width / CGFloat(videosForScreen.count)
-            let splitView = NSView(frame: fullFrame) // View where we'll piece 2 players views together to one NSView
+            let splitView = NSView(frame: fullFrame) // View where we'll piece 2 (or however many videos) players views together to one NSView
             splitView.wantsLayer = true
-            splitView.layer?.masksToBounds = true  // clip subviews
+            splitView.layer?.masksToBounds = true  // Clip subviews
             
             let correspondingVideoPlayers = videosForScreen.map{ videoIndex in
                 externalScreenVideoPlayers[videoIndex]
@@ -127,9 +148,13 @@ class VideoPlaybackViewModel: ObservableObject {
                 ])
                 
                 playerView.player?.seek(to: .zero) // Play the videos from the start
-                playerView.player?.play() // Start the video immediately
+//                playerView.player?.play() // Start the video immediately
                 
                 splitView.addSubview(playerView)
+            }
+            
+            for player in correspondingVideoPlayers {
+                player.play()
             }
             
             // Make a brand-new window on that screen
@@ -153,14 +178,28 @@ class VideoPlaybackViewModel: ObservableObject {
     }
     
     func stopPlayback() {
-        // Stop and reset audio
-        audioPlayer?.stop()
-        audioPlayer?.currentTime = 0
-        
-        // Remove all windows on screens
-        screenWindows.forEach { $0.close() }
-        screenWindows.removeAll()
-        
-        areVideosPlaying = false
+        DispatchQueue.main.async {
+            // Stop and reset audio
+            self.audioPlayer?.stop()
+            self.audioPlayer?.currentTime = 0
+            
+            // Stop all external video players (audio could still be active!)
+            for player in self.externalScreenVideoPlayers {
+                player.pause()
+                player.seek(to: .zero)
+            }
+            
+            // Stop preview players to reinforce that playback has stopped.
+            for player in self.previewVideoPlayers {
+                player.pause()
+            }
+            
+            // Remove all windows on screens
+            self.screenWindows.forEach { $0.close() }
+            self.screenWindows.removeAll()
+            
+            NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: nil)
+            self.areVideosPlaying = false
+        }
     }
 }

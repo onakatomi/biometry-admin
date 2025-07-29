@@ -27,7 +27,7 @@ struct InlinePreviewView: View {
                         // In-line preview player
                         VideoPlayer(player: players[i])
                             .aspectRatio(16.0/9.0, contentMode: .fill)
-                            .frame(width: 160, height: 90)
+                            .frame(width: 240, height: 135)
                             .clipped()
                             .onAppear { players[i].play() }
                         

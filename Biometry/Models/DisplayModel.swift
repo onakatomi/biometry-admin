@@ -24,7 +24,7 @@ class DisplayModel: ObservableObject {
             .sink { [weak self] _ in self?.reload() }
     }
     
-    private func reload() {
+    func reload() {
         screens = NSScreen.screens
         cgDisplayIDs = fetchActiveDisplays()
     }

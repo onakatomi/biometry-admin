@@ -12,6 +12,7 @@ import AVKit
 
 struct ContentView: View {
     @ObservedObject var viewModel: VideoPlaybackViewModel
+    @StateObject private var vm = SpeechViewModel()
     
     var body: some View {
         ZStack {
@@ -34,9 +35,12 @@ struct ContentView: View {
                 
                 // Audio file
                 if (viewModel.audioPlayer == nil) {
-                    PrimaryButton(text: "Select audio", color: .green) {
-                        viewModel.selectAudioFile()
-                    }
+                    PrimaryButton(
+                        text: "Select audio",
+                        disabled: viewModel.areVideosPlaying,
+                        color: .green,
+                        handler: viewModel.selectAudioFile
+                    )
                 } else {
                     Text("Uploaded audio file: \(String(describing: viewModel.audioPlayer?.data))")
                         .font(.system(size: 10))
@@ -61,11 +65,33 @@ struct ContentView: View {
                         handler: viewModel.startPlayback
                     )
                 }
+                
+                // Refresh screens
+                PrimaryButton(
+                    text: "Refresh screens",
+                    handler: viewModel.model.reload
+                )
+                
+                // LLM
+                PrimaryButton(text: "Query") {
+                    let url = URL(string: "http://127.0.0.1:3000/generate")!
+                    let newRequest = LLMQuery(query: "Who is Elon Musk?")
+                    let bodyData = try JSONEncoder().encode(newRequest)
+
+                   let response: LLMResponse = try await ApiService.shared.request(
+                        url: url,
+                        method: .POST,
+                        body: bodyData
+                    )
+
+                    print("LLM Response:", response)
+                }
             }
             // Rebuild player array whenever the user picks new files (which triggers videoUrls to update)
             .onChange(of: viewModel.videoUrls) { viewModel.updatePlayers() }
             // Keep list of screen-to-video mappings in-sync when screens change
             .onChange(of: viewModel.model.screens) { viewModel.resetSelections() }
+            .padding()
         }
     }
 }
